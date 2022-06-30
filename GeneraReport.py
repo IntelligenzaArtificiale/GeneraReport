@@ -37,7 +37,7 @@ df = None
 if file_upload is not None:
     try:
         #get file name 
-        file_name = file_upload.filename
+        file_name = file_upload.name
 
         #if file is csv
         if file_name.endswith(".csv"):
