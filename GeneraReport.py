@@ -36,16 +36,20 @@ df = None
 #if file is not empty
 if file_upload is not None:
     try:
-        #if file is csv read it as csv
-        if file_upload.lower().endswith("csv"):
+        #get file name 
+        file_name = file_upload.filename
+
+        #if file is csv
+        if file_name.endswith(".csv"):
             df = pd.read_csv(file_upload)
-        #if file is excel read it as excel
-        elif file_upload.lower().endswith("xlsx"):
+        #if file is excel
+        elif file_name.endswith(".xlsx"):
             df = pd.read_excel(file_upload)
-        #if file is not csv or excel show error
+        #if file is not csv or excel
         else:
-            st.error("Porca Troia, non è un file csv o excel")
-            df = None
+            st.error("File non valido")
+          
+
     except Exception as e:
         st.error(e)
         df = None
