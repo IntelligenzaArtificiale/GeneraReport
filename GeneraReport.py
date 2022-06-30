@@ -56,7 +56,8 @@ if file_upload is not None:
 
 if df is not None:
     #create multiselect with all columns of dataframe
-    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns, df.columns)
+    columns_list = df.columns.tolist()
+    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns, columns_list)
 
     try:
         #visualize dtaframe with aggrid in streamlit
