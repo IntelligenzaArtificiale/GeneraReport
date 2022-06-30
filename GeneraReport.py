@@ -101,7 +101,7 @@ if df is not None:
                 st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
 
                 st.balloons()
-            except e as Exception:
+            except Exception as e:
                 st.error("Errore nella generazione del report")
                 st.error(e)
                 st.balloons()
