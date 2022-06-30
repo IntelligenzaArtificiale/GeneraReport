@@ -93,11 +93,11 @@ if df is not None:
                 # create profile report with pandas_profiling and save it in html file
                 profile = ProfileReport(df[columns], title="Analisi dati by IntelligenzaArtificialeItalia.net")
                 # save profile report in html file with name of file uploaded
-                profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html")
+                profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html")
                 # render profile report in streamlit
                 st_profile_report(profile)
 
-                st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html"))
+                st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html"))
                 st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
 
                 st.balloons()
