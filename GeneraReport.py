@@ -49,8 +49,8 @@ if file_upload is not None:
             st.error("File non valido")
           
 
-    except Exception as e:
-        st.error(e)
+    except :
+        st.error("File non valido")
         df = None
 
 if df is not None:
