@@ -45,57 +45,61 @@ if file_upload is not None:
         #if file is not csv or excel show error
         else:
             st.error("File non valido")
+            df = None
     except :
         st.error("File non valido")
+
+if df is not None:
+    #create multiselect with all columns of dataframe
+    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns)
+
+    try:
+        #visualize dtaframe with aggrid in streamlit
+        with st.expander("Visualizza dati in una tabella"):
+            grid_response = AgGrid(
+                df,
+                columns=columns,
+                fit_columns_on_grid_load=True,
+                allow_unsafe_jscode=True,
+                editable=True,
+                enable_enterprise_modules=True
+            )
+    except:
+        st.error("Errore nella visualizzazione dei dati")
+
+
+    try:
+        #visulize descriptive statistics with aggrid in streamlit
+        with st.expander("Visualizza statistiche descrittive"):
+            grid_response = AgGrid(
+                df.describe(),
+                fit_columns_on_grid_load=True,
+                allow_unsafe_jscode=True,
+                editable=True,
+                enable_enterprise_modules=True
+            )
+    except:
+        st.error("Errore nella visualizzazione delle statistiche descrittive")
+
+    #create button
+    if st.button("Genera report") :
+        with st.spinner("Generazione Report Corso..."):
+            try:
+                # create profile report with pandas_profiling and save it in html file
+                profile = ProfileReport(df, title="Analisi dati by IntelligenzaArtificialeItalia.net", html_theme="dark")
+                # save profile report in html file with name of file uploaded
+                profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html")
+                # render profile report in streamlit
+                st_profile_report(profile)
+
+                st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html"))
+                st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
+
+                st.balloons()
+            except:
+                st.error("Errore nella generazione del report")
         
-#create multiselect with all columns of dataframe
-columns = st.multiselect("Seleziona le colonne da analizzare", df.columns)
 
-try:
-    #visualize dtaframe with aggrid in streamlit
-    with st.expander("Visualizza dati in una tabella"):
-        grid_response = AgGrid(
-            df,
-            columns=columns,
-            fit_columns_on_grid_load=True,
-            allow_unsafe_jscode=True,
-            editable=True,
-            enable_enterprise_modules=True
-        )
-except:
-    st.error("Errore nella visualizzazione dei dati")
-
-
-try:
-    #visulize descriptive statistics with aggrid in streamlit
-    with st.expander("Visualizza statistiche descrittive"):
-        grid_response = AgGrid(
-            df.describe(),
-            fit_columns_on_grid_load=True,
-            allow_unsafe_jscode=True,
-            editable=True,
-            enable_enterprise_modules=True
-        )
-except:
-    st.error("Errore nella visualizzazione delle statistiche descrittive")
-
-#create button
-if st.button("Genera report") :
-    with st.spinner("Generazione Report Corso..."):
-        try:
-            # create profile report with pandas_profiling and save it in html file
-            profile = ProfileReport(df, title="Analisi dati by IntelligenzaArtificialeItalia.net", html_theme="dark")
-            # save profile report in html file with name of file uploaded
-            profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html")
-            # render profile report in streamlit
-            st_profile_report(profile)
-
-            st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html"))
-            st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
-
-            st.balloons()
-        except:
-            st.error("Errore nella generazione del report")
 
 
 
