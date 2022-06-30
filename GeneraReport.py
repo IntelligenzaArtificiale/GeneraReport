@@ -27,7 +27,6 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
-st.text("Carica qui sotto un file csv o xlsx")
 #get file csv or excel in input with streamlit
 file_upload = st.file_uploader("Carica il file csv o excel", type=["csv", "xlsx"])
 
