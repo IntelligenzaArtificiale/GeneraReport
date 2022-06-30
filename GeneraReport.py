@@ -14,7 +14,7 @@ def get_binary_file_downloader_html(bin_file, file_label='File'):
     bin_str = base64.b64encode(data).decode()
     href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{os.path.basename(bin_file)}">Download {file_label}</a>'
     return href
-    
+
 
 st.set_page_config(page_title="Genera Analisi sui tuoi dati in pochi click", page_icon="🔍", layout='wide', initial_sidebar_state='auto')
 hide_st_style = """
@@ -44,10 +44,11 @@ if file_upload is not None:
             df = pd.read_excel(file_upload)
         #if file is not csv or excel show error
         else:
-            st.error("File non valido")
+            st.error("Porca Troia, non è un file csv o excel")
             df = None
-    except :
-        st.error("File non valido")
+    except Exception as e:
+        st.error(e)
+        df = None
 
 if df is not None:
     #create multiselect with all columns of dataframe
