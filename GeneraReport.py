@@ -91,7 +91,7 @@ if df is not None:
         with st.spinner("Generazione Report Corso..."):
             try:
                 # create profile report with pandas_profiling and save it in html file
-                profile = ProfileReport(df[columns], title="Analisi dati by IntelligenzaArtificialeItalia.net", html_theme="dark")
+                profile = ProfileReport(df[columns], title="Analisi dati by IntelligenzaArtificialeItalia.net")
                 # save profile report in html file with name of file uploaded
                 profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html")
                 # render profile report in streamlit
