@@ -56,7 +56,7 @@ if file_upload is not None:
 
 if df is not None:
     #create multiselect with all columns of dataframe
-    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns)
+    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns, df.columns)
 
     try:
         #visualize dtaframe with aggrid in streamlit
@@ -97,7 +97,7 @@ if df is not None:
                 # render profile report in streamlit
                 st_profile_report(profile)
 
-                st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html"))
+                st.markdown(get_binary_file_downloader_html("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html", "Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.name + ".html"), unsafe_allow_html=True)
                 st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
 
                 st.balloons()
