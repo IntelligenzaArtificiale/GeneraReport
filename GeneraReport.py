@@ -56,7 +56,7 @@ if file_upload is not None:
 
 if df is not None:
     #create multiselect with all columns of dataframe
-    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns)
+    columns = st.multiselect("Seleziona le colonne da analizzare", df.columns, default=df.columns)
 
     try:
         #visualize dtaframe with aggrid in streamlit
@@ -91,7 +91,7 @@ if df is not None:
         with st.spinner("Generazione Report Corso..."):
             try:
                 # create profile report with pandas_profiling and save it in html file
-                profile = ProfileReport(df, title="Analisi dati by IntelligenzaArtificialeItalia.net", html_theme="dark")
+                profile = ProfileReport(df[columns], title="Analisi dati by IntelligenzaArtificialeItalia.net", html_theme="dark")
                 # save profile report in html file with name of file uploaded
                 profile.to_file("Analisi_dati_IntelligenzaArtificialeItalia.net_" + file_upload.filename + ".html")
                 # render profile report in streamlit
@@ -101,8 +101,11 @@ if df is not None:
                 st.success("Report Generato Con Successo, per scaricarlo clicca il Link quì sopra.")
 
                 st.balloons()
-            except:
+            except e as Exception:
                 st.error("Errore nella generazione del report")
+                st.error(e)
+                st.balloons()
+                pass
         
 
 
