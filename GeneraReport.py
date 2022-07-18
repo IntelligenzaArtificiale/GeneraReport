@@ -28,7 +28,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
 #get file csv or excel in input with streamlit
-file_upload = st.file_uploader("Carica il file csv o excel", type=["csv", "xlsx"])
+file_upload = st.file_uploader("Carica il file csv o excel", type=["csv", "xlsx", "xls"])
 
 df = None
 
@@ -42,7 +42,7 @@ if file_upload is not None:
         if file_name.endswith(".csv"):
             df = pd.read_csv(file_upload)
         #if file is excel
-        elif file_name.endswith(".xlsx"):
+        elif file_name.endswith(".xlsx") or file_name.endswith(".xls"):
             df = pd.read_excel(file_upload)
         #if file is not csv or excel
         else:
